@@ -1,0 +1,14 @@
+name: pratt
+version: 0.1.0
+
+authors:
+  - Darryl <darryl@snakegully.au>
+
+crystal: ">= 1.4"
+
+license: MIT
+
+targets:
+  bantam:
+    main: src/bantam/bantam.cr
+

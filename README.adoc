@@ -1,0 +1,54 @@
+= pratt
+
+This is an implementation of a pratt parser, as described in 
+https://journal.stuffwithstuff.com/2011/03/19/pratt-parsers-expression-parsing-made-easy/,
+code at https://github.com/munificent/bantam.
+
+The library as it is provides the parsing engine. You need to describe the language that
+you are parsing before you can use it. The directory 'src/bantam' provides a description
+of the 'bantam' language, which is an example of how to use it. And please read the
+above site!
+
+
+== Installation
+
+1. Add the dependency to your `shard.yml`:
+
+   ```yaml
+   dependencies:
+     pratt:
+       github: gundy818/pratt
+   ```
+
+2. Run `shards install`
+
+
+== Usage
+
+  ```crystal
+    require "pratt"
+  ```
+
+
+== Development
+
+This is pretty much a word for word translation of the original Java source code.
+Crystal is my new favourite language, but I have not been using it for long. It is
+likely that there are many ways that this could be improved to make it more 'crystaline'
+/ less 'javonic', and patches which do this are very welcome.
+
+
+== Contributing
+
+1. Fork it (<https://github.com/gundy818/pratt/fork>)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+
+== Contributors
+
+- [Darryl](https://github.com/gundy818) - creator and maintainer
+- [Bob Nystrom](https://github.com/munificent - original idea and Java implementation
+
