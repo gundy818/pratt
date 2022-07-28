@@ -2,7 +2,7 @@ require "./spec_helper"
 
 describe Pratt::CallParselet do
   it "initialises" do
-    p = Pratt::CallParselet.new
+    Pratt::CallParselet.new
   end
 
   it "parses abc()" do

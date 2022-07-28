@@ -3,7 +3,7 @@ require "./spec_helper"
 
 describe Pratt::Lexer do
   it "initialises" do
-    lexer = Pratt::Lexer.new("")
+    Pratt::Lexer.new("")
   end
 
   eof = Pratt::Token.new(Pratt::TokenType::Type::EOF, "")
@@ -18,7 +18,6 @@ describe Pratt::Lexer do
     describe "call" do
       it "parses empty call" do
         lexer = Pratt::Lexer.new("a()")
-        tokens = [] of Pratt::Token
         expected = [
           Pratt::Token.new(Pratt::TokenType::Type::NAME, "a"),
           Pratt::Token.new(Pratt::TokenType::Type::LEFT_PAREN, "("),
@@ -33,7 +32,6 @@ describe Pratt::Lexer do
 
       it "parses empty call" do
         lexer = Pratt::Lexer.new("a(x, yy, zzz)")
-        tokens = [] of Pratt::Token
         expected = [
           Pratt::Token.new(Pratt::TokenType::Type::NAME, "a"),
           Pratt::Token.new(Pratt::TokenType::Type::LEFT_PAREN, "("),

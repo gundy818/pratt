@@ -4,7 +4,7 @@ require "./spec_helper"
 describe Pratt::Parser do
   it "initialises" do
     lexer = Pratt::Lexer.new("abc")
-    parser = Pratt::Parser.new(lexer)
+    Pratt::Parser.new(lexer)
   end
 
   describe "#register PrefixParselet" do
@@ -35,19 +35,6 @@ describe Pratt::Parser do
   describe "#match" do
     lexer = Pratt::Lexer.new("a+-z")
     parser = Pratt::Parser.new(lexer)
-
-    expected = [
-      Pratt::Token.new(Pratt::TokenType::Type::NAME, "a"),
-      Pratt::Token.new(Pratt::TokenType::Type::RIGHT_PAREN, ")"),
-      Pratt::Token.new(Pratt::TokenType::Type::NAME, "bc"),
-      Pratt::Token.new(Pratt::TokenType::Type::LEFT_PAREN, "("),
-      Pratt::Token.new(Pratt::TokenType::Type::RIGHT_PAREN, ")"),
-      Pratt::Token.new(Pratt::TokenType::Type::NAME, "a"),
-      Pratt::Token.new(Pratt::TokenType::Type::NAME, "b"),
-      Pratt::Token.new(Pratt::TokenType::Type::PLUS, "+"),
-      Pratt::Token.new(Pratt::TokenType::Type::MINUS, "-"),
-      Pratt::Token.new(Pratt::TokenType::Type::EOF, "")
-    ]
 
     it "ignores mismatch" do
       # should be false
