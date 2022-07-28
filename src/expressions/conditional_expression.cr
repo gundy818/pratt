@@ -4,7 +4,7 @@ require "./expression"
 module Pratt
   class ConditionalExpression
     include Pratt::Expression
- 
+
     property condition : Expression
     property then_arm : Expression
     property else_arm : Expression

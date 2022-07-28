@@ -18,7 +18,7 @@ module Pratt
     # Creates a new Lexer to tokenize the given string.
     # @param text String to tokenize.
 
-    # the maximum number of eofs to hand out. This is to avoid the infinite case of 
+    # the maximum number of eofs to hand out. This is to avoid the infinite case of
     # x = Array.new(lexer)
     # and is a departure from the original Java version.
     @eof_triggered : Int32 = 10

@@ -36,17 +36,17 @@ module Bantam
       test("a + b - c", "((a + b) - c)");
       test("a * b / c", "((a * b) / c)");
       test("a ^ b ^ c", "(a ^ (b ^ c))");
-    
+
       # Conditional operator.
       test("a ? b : c ? d : e", "(a ? b : (c ? d : e))");
       test("a ? b ? c : d : e", "(a ? (b ? c : d) : e)");
       test("a + b ? c * d : e / f", "((a + b) ? (c * d) : (e / f))");
-    
+
       # Grouping.
       test("a + (b + c) + d", "((a + (b + c)) + d)");
       test("a ^ (b + c)", "(a ^ (b + c))");
       test("(!a)!",    "((!a)!)");
-    
+
       # Show the results.
       if @s_failed == 0
         puts("Passed all #{@s_passed} tests.")
