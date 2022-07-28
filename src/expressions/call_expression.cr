@@ -11,7 +11,7 @@ module Pratt
     end
 
     def print() : String
-      args = @m_args.map { |arg| arg.print }
+      args = @m_args.map(&.print)
       return "#{@m_function.print}(#{args.join(", ")})"
     end
   end
