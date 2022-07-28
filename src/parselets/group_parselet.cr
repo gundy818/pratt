@@ -11,7 +11,7 @@ module Pratt
     include PrefixParselet
 
     def parse(parser : Parser, token : Token) : Expression
-      expression = parser.parseExpression()
+      expression = parser.parse_expression()
       parser.consume(TokenType::Type::RIGHT_PAREN)
 
       return expression

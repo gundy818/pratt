@@ -15,16 +15,16 @@ module Pratt
     class AssignParselet
       include InfixParselet
 
-      getter mPrecedence = Precedence::ASSIGNMENT
+      getter m_precedence = Precedence::ASSIGNMENT
 
       def parse(parser : Parser, left : Expression, token : Token) : Expression
-        right = parser.parseExpression(Precedence::ASSIGNMENT - 1)
+        right = parser.parse_expression(Precedence::ASSIGNMENT - 1)
 
         if !(left.is_a?(NameExpression))
           raise ParseException.new("The left-hand side of an assignment must be a name.")
         end
 
-        name = left.mName
+        name = left.m_name
 
         return AssignExpression.new(name, right)
       end

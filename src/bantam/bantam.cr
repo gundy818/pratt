@@ -5,8 +5,8 @@ require "./bantam_parser"
 module Bantam
 
   class Main
-    property sPassed = 0
-    property sFailed = 0
+    property s_passed = 0
+    property s_failed = 0
 
     def main()
       # Function call.
@@ -48,11 +48,11 @@ module Bantam
       test("(!a)!",    "((!a)!)");
     
       # Show the results.
-      if @sFailed == 0
-        puts("Passed all #{@sPassed} tests.")
+      if @s_failed == 0
+        puts("Passed all #{@s_passed} tests.")
       else
         puts("----")
-        puts("Failed #{@sFailed} out of #{@sFailed + @sPassed} tests.")
+        puts("Failed #{@s_failed} out of #{@s_failed + @s_passed} tests.")
       end
     end
 
@@ -63,18 +63,18 @@ module Bantam
       parser = BantamParser.new(lexer)
 
       begin
-        result = parser.parseExpression()
+        result = parser.parse_expression()
         actual = result.print()
 
         if expected == actual
-          @sPassed += 1
+          @s_passed += 1
         else
-          @sFailed += 1
+          @s_failed += 1
           puts("[FAIL] Expected: #{expected}")
           puts("         Actual: #{actual}")
         end
       rescue ex : Pratt::ParseException
-        @sFailed += 1
+        @s_failed += 1
         puts("[FAIL] Expected: #{expected}")
         puts("          Error: #{ex}")
       end

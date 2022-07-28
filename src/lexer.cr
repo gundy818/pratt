@@ -21,16 +21,16 @@ module Pratt
     # the maximum number of eofs to hand out. This is to avoid the infinite case of 
     # x = Array.new(lexer)
     # and is a departure from the original Java version.
-    @eofTriggered : Int32 = 10
+    @eof_triggered : Int32 = 10
 
-    def initialize(@mText : String)
-      @mIndex = 0
-      @mPunctuators = Hash(Char, Type).new
+    def initialize(@m_text : String)
+      @m_index = 0
+      @m_punctuators = Hash(Char, Type).new
 
       # Register all of the TokenTypes that are explicit punctuators.
       Pratt::TokenType::Type.each do |ttype|
         punctchar = punctuator(ttype)
-        @mPunctuators[punctchar] = ttype unless punctchar.nil?
+        @m_punctuators[punctchar] = ttype unless punctchar.nil?
       end
     end
 
@@ -38,24 +38,24 @@ module Pratt
       # Return the next token from the text stream.
       #
 
-      while (@mIndex < @mText.size)
-        c = @mText[@mIndex]
-        @mIndex += 1
+      while (@m_index < @m_text.size)
+        c = @m_text[@m_index]
+        @m_index += 1
 
-        if (@mPunctuators.has_key?(c))
+        if (@m_punctuators.has_key?(c))
           # Handle punctuation.
-          return Token.new(@mPunctuators[c], c.to_s)
+          return Token.new(@m_punctuators[c], c.to_s)
         elsif c.ascii_letter?
           # Handle names.
-          start = @mIndex - 1
-          while @mIndex < @mText.size
-            break unless @mText[@mIndex].ascii_letter?
-            @mIndex += 1
+          start = @m_index - 1
+          while @m_index < @m_text.size
+            break unless @m_text[@m_index].ascii_letter?
+            @m_index += 1
           end
 
-          # here, mIndex points one past the last valid character, so to get the length
+          # here, m_index points one past the last valid character, so to get the length
           # you need to subtract the start
-          name = @mText[start, @mIndex - start]
+          name = @m_text[start, @m_index - start]
 
           return Token.new(Type::NAME, name)
         else
@@ -64,9 +64,9 @@ module Pratt
       end
 
       # Once we've reached the end of the string, just return EOF tokens, up to the
-      # limit set in 'eofTriggered'.
-      @eofTriggered -= 1
-      stop if @eofTriggered < 0
+      # limit set in 'eof_triggered'.
+      @eof_triggered -= 1
+      stop if @eof_triggered < 0
 
       return Token.new(Type::EOF, "")
     end

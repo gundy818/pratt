@@ -13,7 +13,7 @@ module Pratt
   class CallParselet
     include InfixParselet
 
-    getter mPrecedence = Precedence::CALL
+    getter m_precedence = Precedence::CALL
 
     def parse(parser : Parser, left : Expression, token : Token) : Expression
       # Parse the comma-separated arguments until we hit, ")".
@@ -21,12 +21,12 @@ module Pratt
 
       if !parser.match(TokenType::Type::RIGHT_PAREN)
         # there are arguments, so get the first one,
-        args << parser.parseExpression()
+        args << parser.parse_expression()
 
         # then get the remaining
         # match discards the comma, so the parseexpression is on the next argument
         while (parser.match(TokenType::Type::COMMA))
-          args << parser.parseExpression()
+          args << parser.parse_expression()
         end
         parser.consume(TokenType::Type::RIGHT_PAREN)
       end

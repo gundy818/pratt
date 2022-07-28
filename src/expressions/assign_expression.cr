@@ -7,11 +7,11 @@ module Pratt
   class AssignExpression
     include Expression
 
-    def initialize(@mName : String, @mRight : Expression)
+    def initialize(@m_name : String, @m_right : Expression)
     end
 
     def print() : String
-      return "(#{@mName} = #{@mRight.print})"
+      return "(#{@m_name} = #{@m_right.print})"
     end
   end
 end

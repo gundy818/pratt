@@ -12,14 +12,14 @@ module Pratt
   class ConditionalParselet
     include InfixParselet
 
-    getter mPrecedence = Precedence::CONDITIONAL
+    getter m_precedence = Precedence::CONDITIONAL
 
     def parse(parser : Parser, left : Expression, token : Token) : Expression
-      thenArm = parser.parseExpression()
+      then_arm = parser.parse_expression()
       parser.consume(TokenType::Type::COLON)
-      elseArm = parser.parseExpression(Precedence::CONDITIONAL - 1)
+      else_arm = parser.parse_expression(Precedence::CONDITIONAL - 1)
 
-      return ConditionalExpression.new(left, thenArm, elseArm)
+      return ConditionalExpression.new(left, then_arm, else_arm)
     end
   end
 end

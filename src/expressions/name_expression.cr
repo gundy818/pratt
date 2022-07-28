@@ -8,13 +8,13 @@ module Pratt
   class NameExpression
     include Expression
 
-    getter mName : String
+    getter m_name : String
 
-    def initialize(@mName)
+    def initialize(@m_name)
     end
 
     def print() : String
-      return @mName
+      return @m_name
     end
   end
 end

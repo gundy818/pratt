@@ -28,11 +28,11 @@ module Bantam
       # For kicks, we'll make "!" both prefix and postfix, kind of like ++.
       postfix(Type::BANG,     Pratt::Precedence::POSTFIX)
   
-      infixLeft(Type::PLUS,     Pratt::Precedence::SUM)
-      infixLeft(Type::MINUS,    Pratt::Precedence::SUM)
-      infixLeft(Type::ASTERISK, Pratt::Precedence::PRODUCT)
-      infixLeft(Type::SLASH,    Pratt::Precedence::PRODUCT)
-      infixRight(Type::CARET,   Pratt::Precedence::EXPONENT)
+      infix_left(Type::PLUS,     Pratt::Precedence::SUM)
+      infix_left(Type::MINUS,    Pratt::Precedence::SUM)
+      infix_left(Type::ASTERISK, Pratt::Precedence::PRODUCT)
+      infix_left(Type::SLASH,    Pratt::Precedence::PRODUCT)
+      infix_right(Type::CARET,   Pratt::Precedence::EXPONENT)
     end
   
     # Registers a postfix unary operator parselet for the given token and
@@ -48,13 +48,13 @@ module Bantam
   
     # Registers a left-associative binary operator parselet for the given token
     # and precedence.
-    def infixLeft(token : Type, precedence : Pratt::Precedence)
+    def infix_left(token : Type, precedence : Pratt::Precedence)
       register(token, Pratt::BinaryOperatorParselet.new(precedence, false))
     end
   
     # Registers a right-associative binary operator parselet for the given token
     # and precedence.
-    def infixRight(token : Type, precedence : Pratt::Precedence)
+    def infix_right(token : Type, precedence : Pratt::Precedence)
       register(token, Pratt::BinaryOperatorParselet.new(precedence, true))
     end
   end

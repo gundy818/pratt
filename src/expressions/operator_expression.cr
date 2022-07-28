@@ -9,11 +9,11 @@ module Pratt
     include Expression
   include TokenType
 
-    def initialize(@mLeft : Expression, @mOperator : Type, @mRight : Expression)
+    def initialize(@m_left : Expression, @m_operator : Type, @m_right : Expression)
     end
 
     def print() : String
-      return "(#{@mLeft.print} #{punctuator(@mOperator)} #{@mRight.print})"
+      return "(#{@m_left.print} #{punctuator(@m_operator)} #{@m_right.print})"
     end
   end
 end
