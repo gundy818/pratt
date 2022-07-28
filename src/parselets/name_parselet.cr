@@ -12,7 +12,7 @@ module Pratt
     include PrefixParselet
 
     def parse(parser : Parser, token : Token) : Expression
-      return NameExpression.new(token.mText)
+      return NameExpression.new(token.m_text)
     end
   end
 end

@@ -13,13 +13,13 @@ module Pratt
   class PostfixOperatorParselet
     include InfixParselet
 
-    getter mPrecedence : Precedence
+    getter m_precedence : Precedence
 
-    def initialize(@mPrecedence)
+    def initialize(@m_precedence)
     end
 
     def parse(parser : Parser, left : Expression, token : Token) : Expression
-      return PostfixExpression.new(left, token.mType)
+      return PostfixExpression.new(left, token.m_type)
     end
   end
 end

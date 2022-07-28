@@ -7,12 +7,12 @@ module Pratt
   class CallExpression
     include Expression
 
-    def initialize(@mFunction : Expression, @mArgs : Array(Expression))
+    def initialize(@m_function : Expression, @m_args : Array(Expression))
     end
 
     def print() : String
-      args = @mArgs.map { |arg| arg.print }
-      return "#{@mFunction.print}(#{args.join(", ")})"
+      args = @m_args.map(&.print)
+      return "#{@m_function.print}(#{args.join(", ")})"
     end
   end
 end

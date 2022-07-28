@@ -13,9 +13,9 @@ module Pratt
   class BinaryOperatorParselet
     include InfixParselet
 
-    getter mPrecedence : Precedence
+    getter m_precedence : Precedence
 
-    def initialize(@mPrecedence, @mIsRight : Bool)
+    def initialize(@m_precedence, @m_is_right : Bool)
     end
 
     def parse(parser : Parser, left : Expression, token : Token) : Expression
@@ -23,9 +23,9 @@ module Pratt
       # lower precedence when parsing the right-hand side. This will let a
       # parselet with the same precedence appear on the right, which will then
       # take *this* parselet's result as its left-hand argument.
-      right = parser.parseExpression(@mPrecedence - (@mIsRight ? 1 : 0))
+      right = parser.parse_expression(@m_precedence - (@m_is_right ? 1 : 0))
 
-      return OperatorExpression.new(left, token.mType, right)
+      return OperatorExpression.new(left, token.m_type, right)
     end
   end
 end

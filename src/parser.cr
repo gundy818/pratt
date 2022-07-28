@@ -10,45 +10,45 @@ require "./parser"
 module Pratt
   class Parser
     # Tokens that have been read from the lexer, available for lookahead
-    @mRead = [] of Token
+    @m_read = [] of Token
 
     # List of registered prefix parselets
-    @mPrefixParselets = {} of TokenType::Type => PrefixParselet
+    @m_prefix_parselets = {} of TokenType::Type => PrefixParselet
 
     # List of registered infix parselets
-    @mInfixParselets = {} of TokenType::Type => InfixParselet
+    @m_infix_parselets = {} of TokenType::Type => InfixParselet
 
     # this provides the stream of tokens to parse. It is implemented by the lexer
-    @mTokens : Iterator(Token)
+    @m_tokens : Iterator(Token)
 
-    def initialize(@mTokens)
+    def initialize(@m_tokens)
     end
 
     def register(token : TokenType::Type, parselet : PrefixParselet)
-      @mPrefixParselets[token] = parselet
+      @m_prefix_parselets[token] = parselet
     end
 
     def register(token : TokenType::Type, parselet : InfixParselet)
-      @mInfixParselets[token] = parselet
+      @m_infix_parselets[token] = parselet
     end
 
-    def parseExpression(precedence : Precedence) : Expression
+    def parse_expression(precedence : Precedence) : Expression
       # grab the first token
       token = consume()
 
       begin
-        prefix : PrefixParselet = @mPrefixParselets[token.mType]
+        prefix : PrefixParselet = @m_prefix_parselets[token.m_type]
       rescue KeyError
-        raise ParseException.new("No prefix parser registered for type #{token.mType}")
+        raise ParseException.new("No prefix parser registered for type #{token.m_type}")
       end
       left : Expression = prefix.parse(self, token)
 
-      while precedence < getPrecedence()
+      while precedence < get_precedence()
         token = consume()
         begin
-          infix : InfixParselet = @mInfixParselets[token.mType]
+          infix : InfixParselet = @m_infix_parselets[token.m_type]
         rescue KeyError
-          raise ParseException.new("No infix parser registered for type #{token.mType}")
+          raise ParseException.new("No infix parser registered for type #{token.m_type}")
         end
         left = infix.parse(self, left, token)
       end
@@ -56,28 +56,28 @@ module Pratt
       return left
     end
 
-    def parseExpression() : Expression
+    def parse_expression() : Expression
       # ths was originally this:
-      # return parseExpression(0)
+      # return parse_expression(0)
       # crystal and java both assign '0' as the value of the first enum element. So the
       # zero here seems to refer to the lowest (first) value. I defined a precedence
       # DEFAULT which is the first available value.
-      return parseExpression(Precedence::DEFAULT)
+      return parse_expression(Precedence::DEFAULT)
     end
 
     def match(expected : TokenType::Type) : Bool
-      token = lookAhead(0)
+      token = look_ahead(0)
 
-      return false unless token.mType == expected
+      return false unless token.m_type == expected
 
       consume()
       return true
     end
 
     def consume(expected : TokenType::Type) : Token
-      token = lookAhead(0)
-      if token.mType != expected
-        raise ParseException.new("Expected token #{expected} and found #{token.mType} ('#{token.mText}')")
+      token = look_ahead(0)
+      if token.m_type != expected
+        raise ParseException.new("Expected token #{expected} and found #{token.m_type} ('#{token.m_text}')")
       end
 
       return consume()
@@ -85,29 +85,29 @@ module Pratt
 
     def consume() : Token
       # Make sure we've read the token.
-      result = lookAhead(0)
-      @mRead.shift
+      result = look_ahead(0)
+      @m_read.shift
 
       return result
     end
 
-    def lookAhead(distance) : Token
+    def look_ahead(distance) : Token
       # Read in as many as needed.
       # This depends on the input providing an endless stream of EOFs, which it doesnt
       # currently
-      while (distance >= @mRead.size())
-        @mRead << @mTokens.next()
+      while (distance >= @m_read.size())
+        @m_read << @m_tokens.next()
       end
 
       # Get the queued token.
-      return @mRead[distance]
+      return @m_read[distance]
     end
 
-    def getPrecedence()
-      parser : InfixParselet? = @mInfixParselets[lookAhead(0).mType]?
+    def get_precedence()
+      parser : InfixParselet? = @m_infix_parselets[look_ahead(0).m_type]?
       return Precedence::DEFAULT if parser.nil?
 
-      return parser.as(InfixParselet).mPrecedence
+      return parser.as(InfixParselet).m_precedence
     end
   end
 end

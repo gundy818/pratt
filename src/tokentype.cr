@@ -18,7 +18,7 @@ module Pratt
       NAME
       EOF
     end
-  
+
     # If the TokenType represents a punctuator (i.e. a token that can split an identifier
     # like '+', this will get its text.
     def punctuator(token : Type) : Char?
@@ -37,9 +37,9 @@ module Pratt
         Type::QUESTION => '?',
         Type::COLON => ':'
       }
-  
+
       return chars.fetch(token, nil)
     end
   end
-end 
+end
 
